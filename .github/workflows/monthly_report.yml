@@ -43,8 +43,8 @@ jobs:
         shell: bash
         run: |
           # Extract main data table
-          (head -n 11 ${{ env.OUTPUT_FILENAME } | tail -n +10 && tail -n +12 ${{ env.OUTPUT_FILENAME } | head -n -2) > ${{ env.OUTPUT_FILENAME }
+          (head -n 11 ${{ env.OUTPUT_FILENAME }} | tail -n +10 && tail -n +12 ${{ env.OUTPUT_FILENAME }} | head -n -2) > ${{ env.OUTPUT_FILENAME }}
           # Sort it by second column (contributions count)
-          cat ${{ env.OUTPUT_FILENAME } | sort --field-separator=\| --key=3 --general-numeric-sort --reverse > ${{ env.OUTPUT_FILENAME }
+          cat ${{ env.OUTPUT_FILENAME }} | sort --field-separator=\| --key=3 --general-numeric-sort --reverse > ${{ env.OUTPUT_FILENAME }}
           # Add title
-          sed -i "1s/^/# YunoHost-Apps contributors $(date +%Y-%m)\n/" ${{ env.OUTPUT_FILENAME }
+          sed -i "1s/^/# YunoHost-Apps contributors $(date +%Y-%m)\n/" ${{ env.OUTPUT_FILENAME }}
