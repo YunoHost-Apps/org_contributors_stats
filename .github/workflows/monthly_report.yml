@@ -40,6 +40,8 @@ jobs:
       - name: Sort table by number of contributions (top to bottom)
         shell: bash
         run: |
+          cat ${{ env.OUTPUT_FILENAME }}
+          
           # Required for some reason to allow editing ${{ env.OUTPUT_FILENAME }} - cf. https://github.com/actions/checkout/issues/211
           sudo chown -R $USER:$USER $GITHUB_WORKSPACE
 
@@ -53,4 +55,9 @@ jobs:
           sed -i "1s/^/# YunoHost-Apps contributors ${{ env.START_DATE }} to ${{ env.END_DATE }} t\n/" ${{ env.OUTPUT_FILENAME }}
 
           # Update Github Actions Job Summary with new content
-          cat ${{ env.OUTPUT_FILENAME }} > $GITHUB_STEP_SUMMARY
+          cat ${{ env.OUTPUT_FILENAME }}
+          echo "job summary before"
+          cat ${{ env.GITHUB_STEP_SUMMARY }}
+          cat ${{ env.OUTPUT_FILENAME }} > "$GITHUB_STEP_SUMMARY"
+          echo "job summary after"
+          cat ${{ env.GITHUB_STEP_SUMMARY }}
