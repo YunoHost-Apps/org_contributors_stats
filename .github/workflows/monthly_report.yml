@@ -1,4 +1,4 @@
-name: Monthly contributor report
+name: "Monthly contributors' report"
 on:
   workflow_dispatch:
   schedule:
@@ -9,10 +9,8 @@ permissions:
 
 jobs:
   contributor_report:
-    name: contributor report
+    name: "Generate contributors' report"
     runs-on: ubuntu-latest
-    permissions:
-      issues: write
     env:
       OUTPUT_FILENAME: contributors.md
 
