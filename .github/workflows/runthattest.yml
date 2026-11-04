@@ -1,4 +1,4 @@
-name: Monthly contributors' report
+name: that's a test
 on:
   workflow_dispatch:
 
