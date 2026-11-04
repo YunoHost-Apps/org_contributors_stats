@@ -40,9 +40,11 @@ jobs:
       - name: Sort table by number of contributions (top to bottom)
         shell: bash
         run: |
+          # Required for some reason to allow editing ${{ env.OUTPUT_FILENAME }} - cf. https://github.com/actions/checkout/issues/211
+          sudo chown -R $USER:$USER $GITHUB_WORKSPACE
           # Extract main data table
           (head -n 11 ${{ env.OUTPUT_FILENAME }} | tail -n +10 && tail -n +12 ${{ env.OUTPUT_FILENAME }} | head -n -2) > ${{ env.OUTPUT_FILENAME }}
           # Sort it by second column (contributions count)
           cat ${{ env.OUTPUT_FILENAME }} | sort --field-separator=\| --key=3 --general-numeric-sort --reverse > ${{ env.OUTPUT_FILENAME }}
           # Add title
-          sed -i "1s/^/# YunoHost-Apps contributors $(date +%Y-%m)\n/" ${{ env.OUTPUT_FILENAME }}
+          sed -i "1s/^/# YunoHost-Apps contributors ${{ env.START_DATE }} to ${{ env.END_DATE }} t\n/" ${{ env.OUTPUT_FILENAME }}
