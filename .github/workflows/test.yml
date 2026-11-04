@@ -1,0 +1,26 @@
+name: that's a test
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  contributor_report:
+    name: Generate contributors' report
+    runs-on: ubuntu-latest
+    env:
+      OUTPUT_FILENAME: contributors.md
+
+    steps:
+      - name: Create ouptut file
+        shell: bash
+        run: |
+          touch ${{ env.OUTPUT_FILENAME }}
+          echo "hello, world!" > ${{ env.OUTPUT_FILENAME }}
+
+      - name: Sort table by number of contributions (top to bottom)
+        shell: bash
+        run: |
+          cat ${{ env.OUTPUT_FILENAME }}
+          cat ${{ env.OUTPUT_FILENAME }} | sed -n "s/hello/bye/" > ${{ env.OUTPUT_FILENAME }}
