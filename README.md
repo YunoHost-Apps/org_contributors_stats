@@ -1,4 +1,5 @@
 This repo sets the action described below for Yunohost-Apps organization on a monthly basis, as it may help to detect yet unidentified regular contributors.
+
 The generated output is accessible in the Actions tab, in each workflow run's output.
 
 # Contributors action
