@@ -34,7 +34,7 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           START_DATE: ${{ env.START_DATE }}
           END_DATE: ${{ env.END_DATE }}
-          ORGANIZATION: "Yunohost-Apps"
+          ORGANIZATION: "YunoHost-Apps"
           SPONSOR_INFO: "false"
 
       - name: Sort table by number of contributions (top to bottom)
@@ -54,7 +54,7 @@ jobs:
           mv "$tmp" "$file"
 
           # Add title
-          sed -i "1s/^/# YunoHost-Apps contributors ${{ env.START_DATE }} to ${{ env.END_DATE }} t\n/" "$file"
+          sed -i "1s/^/# ${{ env.ORGANIZATION }} contributors - ${{ env.START_DATE }} to ${{ env.END_DATE }} t\n/" "$file"
 
           # Update Github Actions Job Summary with new content
           cat "$file" > "$GITHUB_STEP_SUMMARY"
