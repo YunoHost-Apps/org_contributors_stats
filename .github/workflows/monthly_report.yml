@@ -42,12 +42,12 @@ jobs:
         run: |
           # Required for some reason to allow editing ${{ env.OUTPUT_FILENAME }} - cf. https://github.com/actions/checkout/issues/211
           sudo chown -R $USER:$USER "$GITHUB_WORKSPACE"
-          echo "Original file:"
-          cat "$file"
 
           # Extract main data table
           file="${{ env.OUTPUT_FILENAME }}"
           tmp="$(mktemp)"
+          echo "Original file:"
+          cat "$file"
           (head -n 11 "$file" | tail -n +10 && tail -n +12 "$file" | head -n -2) > "$tmp"
           mv "$tmp" "$file"
           echo "Extracted table:"
