@@ -42,19 +42,28 @@ jobs:
         run: |
           # Required for some reason to allow editing ${{ env.OUTPUT_FILENAME }} - cf. https://github.com/actions/checkout/issues/211
           sudo chown -R $USER:$USER "$GITHUB_WORKSPACE"
+          echo "Original file:"
+          cat "$file"
 
           # Extract main data table
           file="${{ env.OUTPUT_FILENAME }}"
           tmp="$(mktemp)"
           (head -n 11 "$file" | tail -n +10 && tail -n +12 "$file" | head -n -2) > "$tmp"
           mv "$tmp" "$file"
+          echo "Extracted table:"
+          cat "$file"
 
           # Sort it by second column (contributions count)
-          cat $file | sort --field-separator=\| --key=3 --general-numeric-sort --reverse > "$tmp"
+          cat "$file" | sort --field-separator=\| --key=3 --general-numeric-sort --reverse > "$tmp"
           mv "$tmp" "$file"
+          echo "Sorted file:"
+          cat "$file"
 
-          # Add title
-          sed -i "1s/^/# ${{ env.ORGANIZATION }} contributors - ${{ env.START_DATE }} to ${{ env.END_DATE }} t\n/" "$file"
+          # Re-insert title
+          title="# ${{ env.ORGANIZATION }} contributors - ${{ env.START_DATE }} to ${{ env.END_DATE }}"
+          sed -i "1i\\$title" "$file"
+          echo "Final file:"
+          cat "$file"
 
           # Update Github Actions Job Summary with new content
           cat "$file" > "$GITHUB_STEP_SUMMARY"
